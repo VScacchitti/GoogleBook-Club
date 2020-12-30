@@ -35,3 +35,5 @@ const SearchResult = (props) => {
         </Container>
     )
 }
+
+export default SearchResult

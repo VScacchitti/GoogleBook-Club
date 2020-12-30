@@ -6,7 +6,7 @@ import SavedResult from "../components/SavedResult"
 class SavedBook extends Component {
 
     state = {
-        savedBooks = []
+        savedBooks : []
     };
   //calls to the API to get saved books
     componentDidMount() {

@@ -2,7 +2,7 @@ import axios from "axios"
 
 export default {
     //Get a Book from a Google Search
-    getGoogleBook: function (query){
+    getGoogleBooks: function (query){
         return axios.get("https://www.googleapis.com/books/v1/volumes?q=" + query)
     },
     // Gets all books

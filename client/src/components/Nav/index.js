@@ -1,10 +1,11 @@
-import react from "react";
+import React from "react";
 
 
 
 function Nav() {
     return (
-        <nav className ="navbar navbar-expand-lg">
+        <div>
+             <nav className ="navbar navbar-expand-lg">
             <a className="navbar-brand">
                 <h2>Google-Book-Club</h2>
             </a>
@@ -19,6 +20,9 @@ function Nav() {
                 </ul>
             </div>
         </nav>
+
+        </div>
+       
     )
 }
 

@@ -22,7 +22,7 @@ class SearchBooks extends Component {
     //Handles the submissio of the form
     handleFormSubmit = event => {
         event.preventDefault();
-        API.getGoogleBook(this.state.search)
+        API.getGoogleBooks(this.state.search)
            .then(res => {
                if (res.data.items === "error") {
                    throw new Error(res.data.items)
