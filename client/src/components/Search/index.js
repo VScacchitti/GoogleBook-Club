@@ -1,6 +1,6 @@
 import React from "react";
 
-const SearchBook = (props) => {
+const Search = (props) => {
     return (
         <form>
           <div className="form-group">
@@ -21,4 +21,4 @@ const SearchBook = (props) => {
    
 }
 
-export default SearchBook
+export default Search

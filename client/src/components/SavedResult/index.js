@@ -1,9 +1,9 @@
 import React from "react";
 import { Container, Row, Col } from "../Grid";
 
-const SavedBooks = (props) => {
+const SavedResult = (props) => {
     return (
-        <Container>
+      <Container>
       <h3>Saved Books</h3>
       {props.savedBooks.map(savedbook => {
         return (
@@ -38,4 +38,4 @@ const SavedBooks = (props) => {
     )
 }
 
-export default SavedBooks;
+export default SavedResult;
