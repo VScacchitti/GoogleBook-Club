@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "../Grid";
+import "./style.css";
 
 const SavedResult = (props) => {
     return (

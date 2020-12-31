@@ -1,10 +1,11 @@
 import React from "react";
+import "./style.css";
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="container bg-warning">
-        <p>&copy; Designed and Developed by Vince Scacchitti</p>
+        <p>&copy; 2021 Designed and Developed by Vince Scacchitti</p>
       </div>
     </footer>
   )

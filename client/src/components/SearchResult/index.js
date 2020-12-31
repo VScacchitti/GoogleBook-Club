@@ -1,6 +1,7 @@
 
 import React from "react";
-import { Container, Row, Col } from "../Grid"
+import { Container, Row, Col } from "../Grid";
+import "./style.css";
 
 const SearchResult = (props) => {
     return (
@@ -21,7 +22,7 @@ const SearchResult = (props) => {
                                 </Col>
                             </Row>
                             <Row>
-                                <button className="save btn mt-4 ml-3 mr-1" id={book.id} onClick={(event) => props.handleSavedButton(event)}>Save Book</button>
+                                <button className="save btn mt-4 ml-3 mr-1" id={book.id} onClick={(event) => props.handleSavedBook(event)}>Save Book</button>
                                 <a href={book.link} target="_blank" rel="noopener noreferrer">
                                 <button className="view btn mt-4">View Book</button>
                                 </a>
