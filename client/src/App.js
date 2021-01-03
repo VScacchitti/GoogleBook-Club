@@ -10,10 +10,13 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <Nav />
           <Switch>
             <Route exact path="/" component={SearchBooks}/>
             <Route exact path="/saved" component={SavedBooks}/>
+            <Route exact path="/saved/:id" component={SavedBooks} />
           </Switch>
+          <Footer />
         </div>
       </Router>
     )

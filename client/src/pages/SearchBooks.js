@@ -1,32 +1,20 @@
 import React, { Component } from "react";
 import API from "../utils/API";
-import { Container } from "../components/Grid";
-import Nav from "../components/Nav";
 import Jumbotron from "../components/Jumbotron";
-import {Input, SubmitBtn} from "../components/Search";
-import SearchResult from "../components/SearchResult";
-import Footer from "../components/Footer"
+import { Container, Row, Col } from "../components/Grid";
+import SearchForm from "../components/SearchForm";
+import SearchResult from "../components/SearchResult"
 
 
 
 class SearchBooks extends Component {
 
     state = {
-        search:"",
-        books:[],
+        search: "",
+        books: [],
+        error: "",
+        message: ""
     };
-
-    searchBooks = () => {
-      API.googleBooks(this.state.search)
-          .then(res => {
-              console.log("This is res.data", res.data.items)
-              this.setState({
-              books: res.data.items,
-              search: ""
-          })})
-          .catch(err => console.log(err));
-          
-  };
 
     //handle input chnage on our search
     handleInputChange = event => {
@@ -39,9 +27,35 @@ class SearchBooks extends Component {
     //Handles the submissio of the form
     handleFormSubmit = event => {
         event.preventDefault();
-        this.searchBooks();
-       
-      }
+        // once it clicks it connects to the google book api with the search value
+        API.getGoogleSearchBooks(this.state.search)
+            .then(res => {
+                if (res.data.items === "error") {
+                    throw new Error(res.data.items);
+                }
+                else {
+                    // store response in a array
+                    let results = res.data.items
+                    //map through the array 
+                    results = results.map(result => {
+                        //store each book information in a new object 
+                        result = {
+                            key: result.id,
+                            id: result.id,
+                            title: result.volumeInfo.title,
+                            author: result.volumeInfo.authors,
+                            description: result.volumeInfo.description,
+                            image: result.volumeInfo.imageLinks.thumbnail,
+                            link: result.volumeInfo.infoLink
+                        }
+                        return result;
+                    })
+                    // reset the sate of the empty books array to the new arrays of objects with properties geting back from the response
+                    this.setState({ books: results, error: "" })
+                }
+            })
+            .catch(err => this.setState({ error: err.items }));
+    }
 
     //handles saving a book
 
