@@ -1,40 +1,30 @@
 
-import React from "react";
-import { Container, Row, Col } from "../Grid";
+import React, {Component} from "react";
+import SearchResultItem from "../SearchResultItem/"
 import "./style.css";
 
-const SearchResult = (props) => {
-    return (
-        <Container>
-            <h3>Book Results</h3>
-            {props.books.map(book => {
-                return (
-                    <div className="card mb-5">
-                        <div className="card-body">
-                            <Row className="row" id={book.title + "Card"} key={book._id}>
-                                <Col size="2">
-                                    <img src={book.image} alt={book.title}/>
-                                </Col>
-                                <Col size="10" className="pl-2">
-                                <h3>{book.title}</h3>
-                                <h4>{book.author}</h4>
-                                <p className="pr-3">{book.desciption}</p>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <button className="save btn mt-4 ml-3 mr-1" id={book.id} onClick={(event) => props.handleSavedBook(event)}>Save Book</button>
-                                <a href={book.link} target="_blank" rel="noopener noreferrer">
-                                <button className="view btn mt-4">View Book</button>
-                                </a>
-                            </Row>
+class SearchResult extends Component {
 
-                        </div>
-                    </div>
-                )
-            })}
 
-        </Container>
-    )
+    render(){
+        console.log("Props", this.props.bookState)
+
+        return (
+            this.props.bookState.map((book) => (
+                <SearchResultItem
+                key={book.id}
+                id={book.id}
+                title={book.volumeInfo.title}
+                link={book.volumeInfo.previewLink}
+                authors={book.volumeInfo.authors && book.volumeInfo.authors.length > 1 ? book.volumeInfo.authors.join(", ") : book.volumeInfo.authors}
+                image={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101065/112815953-no-image-available-icon-flat-vector.jpg"}
+                description={book.volumeInfo.description}
+                saveGoogleBook={this.props.saveGoogleBook}
+                />
+            ))
+        )
+    }
 }
 
 export default SearchResult
+

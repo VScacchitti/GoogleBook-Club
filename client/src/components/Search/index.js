@@ -2,25 +2,19 @@ import React from "react";
 import "./style.css";
 
 
-const Search = (props) => {
-    return (
-        <form>
-          <div className="form-group">
-        <label className="BookSearchLabel"><h3>Search For Books</h3></label>
-        <br></br>
-        <input className="col-12 form-control"
-          value={props.search}
-          type="text"
-          name="searchBook"
-          placeholder="Search for a book by Title"
-          onChange={props.handleInputChange} />
-      </div>
-      <button type="submit" className="submitBtn btn" onClick={props.handleFormSubmit}>
-        Submit</button>
-    </form>
-
-    )
-   
+export function Input(props) {
+  return (
+    <div className="form-group">
+      <input className="form-control" {...props} />
+    </div>
+  )
 }
 
-export default Search
+export function SubmitBtn(props) {
+  return (
+    <button {...props} className="btn submitBtn">Search</button>
+
+  )
+}
+
+

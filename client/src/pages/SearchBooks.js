@@ -11,54 +11,48 @@ class SearchBooks extends Component {
     state = {
         search:"",
         books:[],
-        error:"",
     };
+
+    searchBooks = () => {
+      API.getGoogleSearchBooks(this.state.search)
+         .then( res => {
+           console.log(res.data.items)
+           this.setState({
+             books: res.data.items,
+             search: ""
+           })})
+         .catch(err=> console.log(err));  
+    }
 
     //handle input chnage on our search
     handleInputChange = event => {
-        this.setState({search: event.target.value})
-        console.log(event.target.value)
-    }
+        const {name, value} =event.target;
+        this.setState({
+          [name]: value
+        });
+    };
 
     //Handles the submissio of the form
     handleFormSubmit = event => {
         event.preventDefault();
-        API.getGoogleSearchBooks(this.state.search)
-          .then(res => {
-            if (res.data.items === "error") {
-              throw new Error(res.data.items);
-            }
-            else {
-              // store response
-              let results = res.data.items
-              //map through the array 
-              results = results.map(result => {
-                //store each book information in a new object 
-                result = {
-                  key: result.id,
-                  id: result.id,
-                  title: result.volumeInfo.title,
-                  authors: result.volumeInfo.authors,
-                  description: result.volumeInfo.description,
-                  image: result.volumeInfo.imageLinks.thumbnail,
-                  link: result.volumeInfo.infoLink
-                }
-                return result;
-              })
-              this.setState({ books: results, search: ""})
-            }
-          })
-          .catch(err => this.setState({ error: err.items }));
+        this.searchBooks();
+       
       }
 
     //handles saving a book
 
-    handleSavedBook = event => {
-        event.preventDefault();
-        let savedBooks = this.state.books.filter(book => book.id === event.target.id)
-        API.saveBook(savedBooks)
-          .then(console.log(savedBooks))
-          .catch(err => console.log(err));
+    handleSavedBook = currentBook => {
+      console.log("This is the current book", currentBook);
+      API.saveBook({
+          id: currentBook.id,
+          title: currentBook.title,
+          authors: currentBook.authors,
+          description: currentBook.description,
+          image: currentBook.image,
+          link: currentBook.link
+      })
+      .then(res => console.log("Successful POST to DB!", res))
+      .catch(err => console.log("this is the error", err));
       };
 
     render() {
@@ -75,7 +69,7 @@ class SearchBooks extends Component {
                     </Row>
                 </Container>
                 <Container>
-                    <SearchResult books={this.state.books} handleSavedButton={this.handleSavedButton} />
+                    <SearchResult books={this.state.books} handleSavedBook={this.handleSavedBook} />
                 </Container>
             </Container>
         )
