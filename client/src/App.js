@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SearchBooks from "./pages/SearchBooks"
 import SavedBooks from "./pages/SavedBooks"
+import Nav from "./components/Nav"
+import Footer from "./components/Footer"
 import "./App.css";
 
 

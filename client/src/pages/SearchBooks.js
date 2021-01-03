@@ -18,11 +18,8 @@ class SearchBooks extends Component {
 
     //handle input chnage on our search
     handleInputChange = event => {
-        const {name, value} =event.target;
-        this.setState({
-          [name]: value
-        });
-    };
+        this.setState({ search: event.target.value })
+    }
 
     //Handles the submissio of the form
     handleFormSubmit = event => {
@@ -59,51 +56,38 @@ class SearchBooks extends Component {
 
     //handles saving a book
 
-    handleSavedBook = currentBook => {
-      console.log("This is the current book", currentBook);
-      API.saveBook({
-          id: currentBook.id,
-          title: currentBook.title,
-          authors: currentBook.authors,
-          description: currentBook.description,
-          image: currentBook.image,
-          link: currentBook.link
-      })
-      .then(res => console.log("Successful POST to DB!", res))
-      .catch(err => console.log("this is the error", err));
-      };
+    handleSavedButton = event => {
+        // console.log(event)
+        event.preventDefault();
+        console.log(this.state.books)
+        let savedBooks = this.state.books.filter(book => book.id === event.target.id)
+        savedBooks = savedBooks[0];
+        API.saveBook(savedBooks)
+            .then(this.setState({ message: alert("Your book is saved") }))
+            .catch(err => console.log(err))
+    }
 
     render() {
       return (
-        <div>
-            <Nav />
-            <Container fluid>
-            <Jumbotron />
-            <form>
-                <h5>Search for a Book!</h5>
-                <Input 
-                    value={this.state.search}
-                    onChange={this.handleInputChange}
-                    name="search"
-                    placeholder="Search for a Book"
-                />
-                <SubmitBtn onClick={this.handleFormSubmit}/>
-            </form>
-            
-            {this.state.books.length ? (
-                <SearchResult 
-                bookState={this.state.books}
-                saveGoogleBook={this.saveGoogleBook}>
-                </SearchResult>
-            ) : (
-                <div>
-                    <hr/>
-                <p style={{fontStyle: "italic"}}>No results to display</p>
-                </div>
-            )} 
-            </Container>
-            <Footer/>
-        </div>
+        <Container fluid>
+        <Jumbotron>
+            <h1 className="text-white">Find Your Favorite Books with GoogleBook API</h1>
+        </Jumbotron>
+        <Container>
+            <Row>
+                <Col size="12">
+                    <SearchForm
+                        handleFormSubmit={this.handleFormSubmit}
+                        handleInputChange={this.handleInputChange}
+                    />
+                </Col>
+            </Row>
+        </Container>
+        <br></br>
+        <Container>
+            <SearchResult books={this.state.books} handleSavedButton={this.handleSavedButton} />
+        </Container>
+    </Container>
     )
     }
 
