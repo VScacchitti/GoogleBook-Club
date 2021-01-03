@@ -1,42 +1,26 @@
-import React from "react";
-import { Container, Row, Col } from "../Grid";
+import React, {Component} from "react";
+import SavedResultItem from "../SavedResultItem"
 import "./style.css";
 
-const SavedResult = (props) => {
-    return (
-      <Container>
-      <h3>Saved Books</h3>
-      {props.savedBooks.map(savedbook => {
+class SavedResult extends Compoent {
+  render() {
+        console.log("Props", this.props.bookState)
         return (
-          <div>
-            <div className="card mb-2">
-              <div className="card-body">
-                <Row id={savedbook.title + "Card"} key={savedbook._id}>
-                  <Col size="2">
-                    <img src={savedbook.image} alt={savedbook.title} />
-                  </Col>
-                  <Col size="10" className="pl-2">
-                    <h3 className="bookTitle">{savedbook.title}</h3>
-                    <h4 className="bookAuthor">{savedbook.authors}</h4>
-                    <p className="bookDescription pr-3">{savedbook.description}</p>
-                  </Col>
-                </Row>
-                <Row>
-                  <button className="delete btn mt-4 ml-3 mr-1" id={savedbook._id} onClick={() => props.handleDeleteButton(savedbook._id)}>
-                    Delete Book</button>
-                  <a href={savedbook.link} target="_blank" rel="noopener noreferrer">
-                    <button className="view btn mt-4">
-                      View Book</button>
-                  </a>
-                </Row>
-              </div>
-            </div>
-          </div>
-        );
-      })
-      }
-    </Container>
-    )
+            this.props.bookState.map((book) => (
+            <SavedResultItem 
+            key={book._id}
+            id={book._id}
+            title={book.title}
+            link={book.link}
+            authors={book.authors && book.authors.length > 1 ? book.authors.join(", ") : book.authors}
+            image={book.image ? book.image : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101065/112815953-no-image-available-icon-flat-vector.jpg"}
+            description={book.description}
+            deleteGoogleBook={this.props.deleteGoogleBook}
+            />
+        ))
+        )
+                           
+    }
 }
 
 export default SavedResult;
