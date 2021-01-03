@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import SavedResultItem from "../SavedResultItem"
 import "./style.css";
 
-class SavedResult extends Compoent {
+class SavedResult extends Component {
   render() {
         console.log("Props", this.props.bookState)
         return (

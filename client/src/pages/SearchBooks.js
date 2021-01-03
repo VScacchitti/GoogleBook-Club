@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import API from "../utils/API";
-import { Container, Row, Col } from "../components/Grid";
-import Search from "../components/Search";
+import { Container } from "../components/Grid";
+import Nav from "../components/Nav";
+import Jumbotron from "../components/Jumbotron";
+import {Input, SubmitBtn} from "../components/Search";
 import SearchResult from "../components/SearchResult";
+import Footer from "../components/Footer"
 
 
 
@@ -14,15 +17,16 @@ class SearchBooks extends Component {
     };
 
     searchBooks = () => {
-      API.getGoogleSearchBooks(this.state.search)
-         .then( res => {
-           console.log(res.data.items)
-           this.setState({
-             books: res.data.items,
-             search: ""
-           })})
-         .catch(err=> console.log(err));  
-    }
+      API.googleBooks(this.state.search)
+          .then(res => {
+              console.log("This is res.data", res.data.items)
+              this.setState({
+              books: res.data.items,
+              search: ""
+          })})
+          .catch(err => console.log(err));
+          
+  };
 
     //handle input chnage on our search
     handleInputChange = event => {
@@ -56,23 +60,37 @@ class SearchBooks extends Component {
       };
 
     render() {
-        return (
+      return (
+        <div>
+            <Nav />
             <Container fluid>
-                <Container>
-                    <Row>
-                        <Col size="12">
-                        <Search 
-                        handleFormSubmit={this.handleFormSubmit}
-                        handleInputChange={this.handleInputChange}
-                        />
-                        </Col>
-                    </Row>
-                </Container>
-                <Container>
-                    <SearchResult books={this.state.books} handleSavedBook={this.handleSavedBook} />
-                </Container>
+            <Jumbotron />
+            <form>
+                <h5>Search for a Book!</h5>
+                <Input 
+                    value={this.state.search}
+                    onChange={this.handleInputChange}
+                    name="search"
+                    placeholder="Search for a Book"
+                />
+                <SubmitBtn onClick={this.handleFormSubmit}/>
+            </form>
+            
+            {this.state.books.length ? (
+                <SearchResult 
+                bookState={this.state.books}
+                saveGoogleBook={this.saveGoogleBook}>
+                </SearchResult>
+            ) : (
+                <div>
+                    <hr/>
+                <p style={{fontStyle: "italic"}}>No results to display</p>
+                </div>
+            )} 
             </Container>
-        )
+            <Footer/>
+        </div>
+    )
     }
 
 }

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import API from "../utils/API";
+import { Container } from "../components/Grid";
+import Nav from "../components/Nav";
+import Jumbotron from "../components/Jumbotron";
+import API from '../utils/API';
 import SavedResult from "../components/SavedResult"
+import Footer from "../components/Footer"
 
 
 class SavedBook extends Component {
@@ -9,23 +13,55 @@ class SavedBook extends Component {
         savedBooks : []
     };
   //calls to the API to get saved books
-    componentDidMount() {
-        API.getBooks()
-           .then( res => this.setState({savedBooks: res.data}))
-           .catch(err=> console.log(err))
-    }
+  componentDidMount = () => {
+    this.getBooks()
+}
 
     //handle Delete Book
-    handleDeleteButton = id => {
-        API.deleteBook(id)
-           .then( res => this.componentDidMount())
-           .catch(err => console.log(err))
+    deleteGoogleBook = currentBook => {
+        API.deleteBook( currentBook.id )
+        .then(res => {
+            console.log("You deleted this book:", res);
+            this.getBooks();
+        })
+        .catch(err => {
+            console.log("This is the error", err);
+        })
+    }
+
+    getBooks = () => {
+        API.getBooks()
+        .then(res => {
+            this.setState({
+                savedBooks: res.data
+            })
+            console.log("This is the res from getBooks", res);
+        })
+        .catch(err => {
+            console.log("This is the error", err);
+        })
     }
 
     render() {
         return (
-            <SavedResult savedBooks={this.state.savedBooks} handleDeleteButton={this.handleDeleteButton} />
+            <div>
+                <Nav />
+                <Container fluid>
+                <Jumbotron />
+                {this.state.savedBooks.length ? (
+                    <SavedResult
+                    bookState={this.state.savedBooks}
+                    deleteGoogleBook={this.deleteGoogleBook}
+                    >
+                    </SavedResult>
+                ) : (
+                    <h5>No results to display</h5>
+                )}
+                </Container>
+                <Footer/>
+            </div>
         )
+            
     }
 
 }
