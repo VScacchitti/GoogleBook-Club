@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css";
+import "./style.css"
 import {Row, Col} from "../Grid"
 
 const SavedResult = props => {
@@ -44,7 +44,7 @@ const SavedResult = props => {
                                         Delete Book
                                     </button>
                                     <a href={savedbook.link} target="_blank">
-                                        <button className="viewBook btn btn-warninh">
+                                        <button className="viewBook btn btn-success">
                                             View Book
                                         </button>
                                     </a>
@@ -57,5 +57,4 @@ const SavedResult = props => {
         </div>
     )
 }
-
-export default SavedResult;
+export default SavedResult
