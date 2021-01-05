@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "googlebookclub",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "React based google books search app",
   "proxy": "http://localhost:3001/",
   "main": "server.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "author": "",
+  "author": "Vince Scacchitti",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^4.1.0",
@@ -25,7 +25,7 @@
     "bootstrap": "^4.5.3",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
-    "mongoose": "^5.11.9",
+    "mongoose": "^5.11.10",
     "react-bootstrap": "^1.4.0",
     "react-router-dom": "^5.2.0"
   }
