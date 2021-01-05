@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Container, Row, Col } from "../Grid"
 import "./style.css";
@@ -38,4 +37,5 @@ const SearchResult = props => {
   )
 }
 export default SearchResult;
+
 
