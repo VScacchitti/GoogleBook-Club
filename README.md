@@ -16,13 +16,21 @@ Saved Books
 
 ### Technologies Used
 React.js
+
 Express.js
+
 Mongoose
+
 Node.js
+
 MongoDB Atlas
+
 GoogleBook API
+
 Javascript 
+
 CSS
+
 HTML
 
 #### Links
