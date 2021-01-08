@@ -8,7 +8,7 @@ function Nav() {
         <div>
              <nav className ="navbar navbar-expand-lg">
             <a className="navbar-brand">
-                <h2>Google-Book-Club</h2>
+                <h2>Google Book Club</h2>
             </a>
             <div>
                 <ul className="navbar-nav">
