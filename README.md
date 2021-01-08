@@ -33,7 +33,7 @@ CSS
 
 HTML
 
-#### Links
+### Links
 Deployed Application: https://calm-savannah-71238.herokuapp.com/
 
 Github Repository: https://github.com/VScacchitti/GoogleBook-Club
